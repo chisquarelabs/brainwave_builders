@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+ api:
+  build:
+   context: .
+   target: build
+  volumes:
+   - ./:/app
+   - /app/node_modules
+  ports:
+   - 4003:4003
+  environment:
+   - NODE_ENV=development
+   - NODE_TLS_REJECT_UNAUTHORIZED=0
+  command: npm run dev
