@@ -5,6 +5,8 @@ import Footer from './component/Footer';
 import Survey from './pages/Survey';
 import Login from './pages/Login';
 import ContactUs from './component/ContactUs';
+import Signup from './pages/SignUp';
+import CompletedPage from './component/CompletedPage';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/appointment" element={<Survey />} />
         <Route path="/login" element={<Login />} /> 
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/completed" element={<CompletedPage />} />
       </Routes>
       <Footer />
     </Router>
