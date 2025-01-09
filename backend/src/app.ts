@@ -7,6 +7,15 @@ import { UserService } from "./application/services/UserService";
 import { UserController } from "./presentation/controllers/UserController";
 import { User } from "./core/entities/User";
 import { authMiddleware } from "./presentation/middlewares/authMiddleWare";
+import { UserRoutes } from "./routes/UserRoutes";
+import { Question, Questionnaire } from "./core/entities/Question";
+import { QuestionRoutes } from "./routes/QuestionRoutes";
+import { QuestionRepository } from "./infrastructure/repositories/QuestionRepository";
+import { QuestionService } from "./application/services/QuestionService";
+import { QuestionController } from "./presentation/controllers/QuestionController";
+import { EligibilityRepository } from "./infrastructure/repositories/EligibilityRepository";
+import { QuestionEligibility } from "./core/entities/Eligibility";
+import { EligibilityService } from "./application/services/EligibilityService";
 
 export const createApp = async (config) => {
   const app = express();
@@ -24,29 +33,33 @@ export const createApp = async (config) => {
   const userRepository = new UserRepository(
     dataBaseInstance.getRepository(User)
   );
+  const questionRepository = new QuestionRepository(
+    dataBaseInstance.getRepository(Questionnaire)
+  );
+
+  const eligibilityRepository = new EligibilityRepository(
+    dataBaseInstance.getRepository(QuestionEligibility)
+  );
 
   // Services
   const userService = new UserService(userRepository);
+  const questionService = new QuestionService(questionRepository);
+  const eligibilityService = new EligibilityService(eligibilityRepository);
 
   // Controllers
   const userController = new UserController(userService);
+  const questionController = new QuestionController(
+    questionService,
+    eligibilityService
+  );
+
+  const router = express.Router();
+
+  app.use("/", router);
 
   // Routes
-  app.post("/users", (req, res) => userController.createUser(req, res));
-
-  app.post("/login", (req, res) => userController.login(req, res));
-  app.get("/users", authMiddleware, (req, res) =>
-    userController.getAllUsers(req, res)
-  );
-  app.get("/users/:id", authMiddleware, (req, res) =>
-    userController.getUserById(req, res)
-  );
-  app.put("/users/:id", authMiddleware, (req, res) =>
-    userController.updateUser(req, res)
-  );
-  app.delete("/users/:id", authMiddleware, (req, res) =>
-    userController.deleteUser(req, res)
-  );
+  UserRoutes(router, userController);
+  QuestionRoutes(router, questionController);
 
   return app;
 };
