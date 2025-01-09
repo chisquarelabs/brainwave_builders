@@ -30,10 +30,6 @@ const SurveyForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [schema, setSchema] = useState<SurveySchema | null>(null);
 
-  // Sample data from backend
-  const backendData=[]
-  
-
   // Define question type mappings for survey elements
   const questionTypeMap: { [key: string]: (item: any) => SurveyElement } = {
     input: (item) => ({
@@ -49,7 +45,6 @@ const SurveyForm = () => {
       isRequired: true,
       inputType: "date",
     }),
-
     radio: (item) => ({
       type: "radiogroup",
       name: item.id,
@@ -60,7 +55,6 @@ const SurveyForm = () => {
         text: answer.answer_text, // Use answer text for display
       })),
     }),
-    
     checkbox: (item) => ({
       type: "checkbox",
       name: item.id,
@@ -89,18 +83,26 @@ const SurveyForm = () => {
     return { elements };
   };
 
-  // Dummy function to simulate post request
-  const addToDatabase = (results: string) => {
-    console.log("Data to be saved:", results);
-    // Normally, you would use axios to save the data
-    // Example: axios.post("/api", results);
+  // Fetch data from backend API
+  const fetchQuestionnaire = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:4003/questions");
+      const questions = response.data.questions; // Assuming response contains a "questions" field
+      console.log(response.data);
+      
+      const schema = generateSchema(questions); // Generate schema from API data
+      setSchema(schema);
+    } catch (error) {
+      console.error("Error fetching survey data:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Set survey schema from backend data and remove loading state
+  // Fetch survey data on component mount
   useEffect(() => {
-    const schema = generateSchema(backendData);
-    setSchema(schema);
-    setIsLoading(false);
+    fetchQuestionnaire();
   }, []);
 
   // Create Survey model from schema
@@ -111,6 +113,13 @@ const SurveyForm = () => {
     const results = JSON.stringify(sender.data);
     addToDatabase(results);
   });
+
+  // Dummy function to simulate post request
+  const addToDatabase = (results: string) => {
+    console.log("Data to be saved:", results);
+    // Normally, you would use axios to save the data
+    // Example: axios.post("/api", results);
+  };
 
   // Render loading or survey component
   const html = isLoading ? <p>Loading...</p> : <Survey model={survey} />;
