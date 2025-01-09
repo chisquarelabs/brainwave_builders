@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Importing Link for routing
+import { Link, useNavigate } from 'react-router-dom'; // Importing Link and useNavigate for routing
 import './Login.css';
 
 const Login: React.FC = () => {
@@ -7,19 +7,55 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  // Check if users are stored in localStorage, otherwise, set them
+  const physicianEmail = "physician@gmail.com";
+  const physicianPassword = "physician123";
+  const userEmail = "user@gmail.com";
+  const userPassword = "user123";
+
+  // Check if admin or user credentials are already in localStorage
+  if (!localStorage.getItem('physician')) {
+    localStorage.setItem('physician', JSON.stringify({ email: physicianEmail, password: physicianPassword }));
+  }
+
+  if (!localStorage.getItem('user')) {
+    localStorage.setItem('user', JSON.stringify({ email: userEmail, password: userPassword }));
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation for empty fields
     if (!username || !password) {
       setError('Both fields are required');
       return;
     }
 
-    console.log('Username:', username);
-    console.log('Password:', password);
-    setError('');
+    // Fetch stored users from localStorage
+    const storedAdmin = JSON.parse(localStorage.getItem('physician') || '{}');
+    const storedPhysician = JSON.parse(localStorage.getItem('user') || '{}');
+
+    // Validate credentials
+    if (
+      (username === storedAdmin.email && password === storedAdmin.password) ||
+      (username === storedPhysician.email && password === storedPhysician.password)
+    ) {
+      // Successful login, save the user type in localStorage
+      localStorage.setItem('loggedInUser', JSON.stringify({ email: username }));
+      setError('');
+      console.log('Login successful!');
+
+      // Redirect based on user type (admin or user)
+      if (username === storedAdmin.email) {
+        navigate('/'); // Redirect to admin dashboard
+      } else {
+        navigate('/appointment'); // Redirect to user dashboard
+      }
+    } else {
+      setError('Invalid username or password');
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -30,7 +66,7 @@ const Login: React.FC = () => {
     <div className="login-container">
       <div className="login-form">
         <h1 className="text-white">Login</h1>
-        
+
         {error && <div className="alert alert-danger">{error}</div>}
 
         <form onSubmit={handleSubmit}>
