@@ -6,10 +6,12 @@ import {
   Unique,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import * as bcrypt from "bcrypt";
 import { UserRoles } from "./UserRoles";
+import { Reviews } from "./Reviews";
 
 @Entity()
 export class Users {
@@ -35,6 +37,9 @@ export class Users {
   @ManyToOne((type) => UserRoles, (type) => type.users)
   @JoinColumn({ name: "role_id" })
   role: UserRoles;
+
+  @OneToMany((type) => Reviews, (review) => review.ceUser)
+  reviews: Reviews[];
 
   @BeforeInsert()
   async hashPassword() {

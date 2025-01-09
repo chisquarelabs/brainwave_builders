@@ -15,4 +15,7 @@ export class EligibilityService implements IEligibilityService {
   async getEarlyExitQuestions(): Promise<QuestionEligibility[]> {
     return this.eligibilityRepository.findEarlyExitQuestions();
   }
+  async getAllEligibilities(): Promise<QuestionEligibility[]> {
+    return this.eligibilityRepository.getAllRecords();
+  }
 }

@@ -5,12 +5,13 @@ import { Questionnaire } from "../../core/entities/Question";
 import { QuestionEligibility } from "../../core/entities/Eligibility";
 import { Types } from "../../core/entities/Types";
 import { UserRoles } from "../../core/entities/UserRoles";
+import { Reviews } from "../../core/entities/Reviews";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
   url: config.databaseUrl,
   ssl: true,
-  entities: [Users, UserRoles, Questionnaire, QuestionEligibility, Types],
+  entities: [Users, UserRoles, Questionnaire, QuestionEligibility, Types,Reviews],
   migrations: [],
   migrationsTableName: "migrations",
   synchronize: true,

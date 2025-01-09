@@ -16,6 +16,11 @@ import { QuestionController } from "./presentation/controllers/QuestionControlle
 import { EligibilityRepository } from "./infrastructure/repositories/EligibilityRepository";
 import { QuestionEligibility } from "./core/entities/Eligibility";
 import { EligibilityService } from "./application/services/EligibilityService";
+import { ReviewRepository } from "./infrastructure/repositories/ReviewRepository";
+import { Reviews } from "./core/entities/Reviews";
+import { ReviewService } from "./application/services/ReviewService";
+import { ReviewController } from "./presentation/controllers/ReviewController";
+import { ReviewRoutes } from "./routes/ReviewRoutes";
 
 export const createApp = async (config) => {
   const app = express();
@@ -41,16 +46,26 @@ export const createApp = async (config) => {
     dataBaseInstance.getRepository(QuestionEligibility)
   );
 
+  const reviewRepository = new ReviewRepository(
+    dataBaseInstance.getRepository(Reviews)
+  );
+
   // Services
   const userService = new UserService(userRepository);
   const questionService = new QuestionService(questionRepository);
   const eligibilityService = new EligibilityService(eligibilityRepository);
+  const reviewService = new ReviewService(reviewRepository);
 
   // Controllers
   const userController = new UserController(userService);
   const questionController = new QuestionController(
     questionService,
     eligibilityService
+  );
+  const reviewController = new ReviewController(
+    questionService,
+    eligibilityService,
+    reviewService
   );
 
   const router = express.Router();
@@ -60,6 +75,7 @@ export const createApp = async (config) => {
   // Routes
   UserRoutes(router, userController);
   QuestionRoutes(router, questionController);
+  ReviewRoutes(router, reviewController);
 
   return app;
 };

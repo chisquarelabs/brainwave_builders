@@ -49,12 +49,16 @@ export interface Question {
   medication_sub_questions?: Question[];
 }
 
+export type QuestionAnswerMap = {
+  [key: string]: Answer;
+};
+
 @Entity()
 export class Questionnaire {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('json', { nullable: true }) 
+  @Column("json", { nullable: true })
   questionnaire_json: Question[] | null;
 
   @Column()

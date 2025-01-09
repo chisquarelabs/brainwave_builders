@@ -17,4 +17,12 @@ export class EligibilityRepository implements IEligibilityRepository {
       .getMany();
     return photos;
   }
+
+  async getAllRecords(): Promise<QuestionEligibility[]> {
+    const records = await await this.repository
+      .createQueryBuilder("question_eligibility")
+      .leftJoinAndSelect("question_eligibility.type", "type")
+      .getMany();
+    return records;
+  }
 }

@@ -10,6 +10,7 @@ import {
 import { IsEmail, Length } from "class-validator";
 import * as bcrypt from "bcrypt";
 import { QuestionEligibility } from "./Eligibility";
+import { Reviews } from "./Reviews";
 
 export enum QuestionType {
   DATE = "date",
@@ -61,4 +62,7 @@ export class Types {
 
   @OneToMany((type) => QuestionEligibility, (eligibility) => eligibility.type)
   eligibility: QuestionEligibility[];
+
+  @OneToMany((type) => Reviews, (review) => review.type)
+  reviews: Reviews[];
 }
