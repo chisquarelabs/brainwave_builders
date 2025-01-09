@@ -89,7 +89,7 @@ const SurveyForm = () => {
   const fetchQuestionnaire = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://localhost:4003/questions");
+      const response = await axios.get("http://brainwave-alb-217479858.eu-west-2.elb.amazonaws.com/questions");
       const questions = response.data.questions; 
       console.log(response.data);
       
