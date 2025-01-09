@@ -1,6 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importing Bootstrap CSS
-import '../../css/bootstrap.min.css'; // Importing custom Bootstrap CSS (if needed)
-import '../../css/style.css'; // Importing custom style CSS
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import '../../css/bootstrap.min.css'; 
+import '../../css/style.css'; 
 
 function Search() {
   return (

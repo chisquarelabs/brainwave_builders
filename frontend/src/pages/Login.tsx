@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Importing Link and useNavigate for routing
+import { Link, useNavigate } from 'react-router-dom'; 
 import './Login.css';
 
 const Login: React.FC = () => {
@@ -9,13 +9,12 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Check if users are stored in localStorage, otherwise, set them
   const physicianEmail = "physician@gmail.com";
   const physicianPassword = "physician123";
   const userEmail = "user@gmail.com";
   const userPassword = "user123";
 
-  // Check if admin or user credentials are already in localStorage
+
   if (!localStorage.getItem('physician')) {
     localStorage.setItem('physician', JSON.stringify({ email: physicianEmail, password: physicianPassword }));
   }
@@ -27,31 +26,30 @@ const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation for empty fields
+
     if (!username || !password) {
       setError('Both fields are required');
       return;
     }
 
-    // Fetch stored users from localStorage
+
     const storedAdmin = JSON.parse(localStorage.getItem('physician') || '{}');
     const storedPhysician = JSON.parse(localStorage.getItem('user') || '{}');
 
-    // Validate credentials
+
     if (
       (username === storedAdmin.email && password === storedAdmin.password) ||
       (username === storedPhysician.email && password === storedPhysician.password)
     ) {
-      // Successful login, save the user type in localStorage
+
       localStorage.setItem('loggedInUser', JSON.stringify({ email: username }));
       setError('');
       console.log('Login successful!');
 
-      // Redirect based on user type (admin or user)
       if (username === storedAdmin.email) {
-        navigate('/'); // Redirect to admin dashboard
+        navigate('/'); 
       } else {
-        navigate('/appointment'); // Redirect to user dashboard
+        navigate('/appointment'); 
       }
     } else {
       setError('Invalid username or password');
