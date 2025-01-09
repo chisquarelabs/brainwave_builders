@@ -164,7 +164,7 @@ const Signup: React.FC = () => {
             </label>
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">Sign Up</button>
+          <button type="submit" className="btn btn-primary w-100" onClick={handleSubmit}>Sign Up</button>
         </form>
       </div>
     </div>
