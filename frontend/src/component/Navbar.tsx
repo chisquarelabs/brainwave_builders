@@ -39,11 +39,11 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
         {isLoggedIn ?
           <Link to={"/"} className="navbar-brand p-0">
-            <h1 className="m-0 text-primary mt-3">Rubix</h1>
+            <h1 className="m-0 text-primary mt-3">BrainWire</h1>
           </Link>
           :
           <Link to={"/login"} className="navbar-brand p-0">
-            <h1 className="m-0 text-primary mt-3">Rubix</h1>
+            <h1 className="m-0 text-primary mt-3">BrainWire</h1>
           </Link>
         }
 
