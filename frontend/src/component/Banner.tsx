@@ -56,7 +56,7 @@ function Banner() {
             <div className="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
               <div className="bg-secondary d-flex flex-column p-5" style={{ height: '300px' }}>
                 <h3 className="text-white mb-3">Make Appointment</h3>
-                <p className="text-white">Ipsum erat ipsum dolor clita rebum no rebum dolores labore, ipsum magna at eos et eos amet.</p>
+                <p className="text-white">Contact to make an appointment</p>
                 <h2 className="text-white mb-0">+012 345 6789</h2>
               </div>
             </div>

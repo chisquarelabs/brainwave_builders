@@ -12,9 +12,7 @@ function Appointment() {
               <div className="py-5">
                 <h1 className="display-5 text-white mb-4">We Are A Certified and Award Winning Clinic You Can Trust</h1>
                 <p className="text-white mb-0">
-                  Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor,
-                  justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem.
-                  Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.
+                Our hospitality makes us the special one.
                 </p>
               </div>
             </div>

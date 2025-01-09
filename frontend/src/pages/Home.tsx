@@ -1,21 +1,19 @@
-
-// import './App.css'
-import Appointment from '../component/Appointment'
-import Banner from '../component/Banner'
-import Carousel from '../component/Carousel'
-import Search from '../component/Search'
-
+import Appointment from '../component/Appointment';
+import Banner from '../component/Banner';
+import Carousel from '../component/Carousel';
+import Search from '../component/Search';
 
 function Home() {
-
   return (
     <>
-      <Search/>
-      <Carousel/>
-      <Banner/>
-      <Appointment/>
+      <Search />
+      <Carousel />
+      <Banner />
+      <Appointment />
+      <div className="text-center mt-4">
+      </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

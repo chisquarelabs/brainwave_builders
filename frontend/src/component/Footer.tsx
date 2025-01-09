@@ -9,10 +9,7 @@ function Footer() {
         <div className="container">
           <div className="row g-0">
             <div className="col-md-6 text-center text-md-start">
-              <p className="mb-md-0">&copy; <a className="text-white border-bottom" href="#">Your Site Name</a>. All Rights Reserved.</p>
-            </div>
-            <div className="col-md-6 text-center text-md-end">
-              <p className="mb-0">Designed by <a className="text-white border-bottom" href="https://htmlcodex.com">HTML Codex</a></p>
+              <p className="mb-md-0">&copy; <a className="text-white border-bottom" href="#">Rubix</a>. All Rights Reserved.</p>
             </div>
           </div>
         </div>
