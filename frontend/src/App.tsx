@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import ContactUs from './component/ContactUs';
 import Signup from './pages/SignUp';
 import CompletedPage from './component/CompletedPage';
+import ChatBotComponent from './component/ChatBot';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/completed" element={<CompletedPage />} />
       </Routes>
       <Footer />
+      <ChatBotComponent/>
     </Router>
   );
 }

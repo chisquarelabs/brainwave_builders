@@ -9,6 +9,10 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
+  "include": [
+    "src",
+    "node_modules/react-simple-chatbot"
+  ]
   
 
 }
