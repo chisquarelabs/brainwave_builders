@@ -1,6 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importing Bootstrap CSS
-import '../../css/bootstrap.min.css'; // Importing custom Bootstrap CSS (if needed)
-import '../../css/style.css'; // Importing custom style CSS
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import '../../css/bootstrap.min.css'; 
+import '../../css/style.css'; 
 
 function Banner() {
   return (
@@ -8,7 +8,6 @@ function Banner() {
       <div className="container-fluid banner mb-5">
         <div className="container">
           <div className="row gx-0">
-            {/* Opening Hours Section */}
             <div className="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
               <div className="bg-primary d-flex flex-column p-5" style={{ height: '300px' }}>
                 <h3 className="text-white mb-3">Opening Hours</h3>
@@ -27,8 +26,6 @@ function Banner() {
                 <a className="btn btn-light" href="#">Appointment</a>
               </div>
             </div>
-
-            {/* Search A Doctor Section */}
             <div className="col-lg-4 wow zoomIn" data-wow-delay="0.3s">
               <div className="bg-dark d-flex flex-column p-5" style={{ height: '300px' }}>
                 <h3 className="text-white mb-3">Search A Doctor</h3>
@@ -51,8 +48,6 @@ function Banner() {
                 <a className="btn btn-light" href="#">Search Doctor</a>
               </div>
             </div>
-
-            {/* Make Appointment Section */}
             <div className="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
               <div className="bg-secondary d-flex flex-column p-5" style={{ height: '300px' }}>
                 <h3 className="text-white mb-3">Make Appointment</h3>
