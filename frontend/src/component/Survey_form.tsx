@@ -2,6 +2,7 @@ import "survey-core/defaultV2.min.css"; // Default V2 theme
 import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 // Define types for the survey schema
 interface SurveyChoice {
@@ -99,10 +100,16 @@ const SurveyForm = () => {
     // Example: axios.post("/api", results);
   };
 
+  const fetchQuestionnaire = async () => {
+    setIsLoading(true);
+    const response = await axios.get("http://localhost:4003/questions");
+    setSchema(response.data.questions);
+    setIsLoading(false);
+  };
+
   // Set survey schema and remove loading state
   useEffect(() => {
-    setSchema(dummySchema);
-    setIsLoading(false);
+    fetchQuestionnaire();
   }, []);
 
   // Create Survey model from schema
