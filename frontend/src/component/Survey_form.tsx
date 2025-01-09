@@ -76,7 +76,9 @@ const SurveyForm = () => {
   };
 
   const generateSchema = (data: any[]): SurveySchema => {
-    const elements = data.map((item) => {
+    const limitedData = data.slice(0, 51);
+
+  const elements = limitedData.map((item) => {
       const createElement = questionTypeMap[item.question_type] || questionTypeMap.default;
       return createElement(item);
     });
