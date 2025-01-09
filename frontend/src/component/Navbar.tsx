@@ -61,7 +61,7 @@ function Navbar() {
                   Home
                 </Link>
                 <Link to="/appointment" className="btn btn-primary py-2 px-4 ms-3">
-                  Appointment
+                  Take Survey
                 </Link>
                 <button onClick={handleLogout} className="btn btn-danger py-2 px-4 ms-3">
                   Logout
@@ -69,6 +69,12 @@ function Navbar() {
               </>
             ) : (
               <>
+              <Link to="/" className="btn text-primary py-2 px-4">
+                  Home
+                </Link>
+                <Link to="/appointment" className="btn btn-primary py-2 px-4 ms-3">
+                  Take Survey
+                </Link>
                 <Link to="/login" className="btn btn-dark py-2 px-4 ms-3">
                   Login
                 </Link>

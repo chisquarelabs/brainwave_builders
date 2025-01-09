@@ -3,6 +3,7 @@ import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Define types for the survey schema
 interface SurveyChoice {
@@ -29,6 +30,8 @@ StylesManager.applyTheme("defaultV2");
 const SurveyForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [schema, setSchema] = useState<SurveySchema | null>(null);
+  const [results, setResults] = useState<any>(null);  // State to hold the survey results
+  const navigate = useNavigate();  // For navigation
 
   // Define question type mappings for survey elements
   const questionTypeMap: { [key: string]: (item: any) => SurveyElement } = {
@@ -110,16 +113,22 @@ const SurveyForm = () => {
 
   // Handle survey completion
   survey.onComplete.add((sender) => {
-    const results = JSON.stringify(sender.data);
-    addToDatabase(results);
-  });
+    const completedData = sender.data;
 
-  // Dummy function to simulate post request
-  const addToDatabase = (results: string) => {
-    console.log("Data to be saved:", results);
-    // Normally, you would use axios to save the data
-    // Example: axios.post("/api", results);
-  };
+    // Map the completed answers with the question texts and answer texts
+    const mappedResults = Object.keys(completedData).map((questionId) => {
+      const question = schema?.elements.find((e) => e.name === questionId);
+      const selectedValue = completedData[questionId];
+      const selectedText = question?.choices?.find((choice) => choice.value === selectedValue)?.text || selectedValue;
+      
+      return {
+        questionText: question?.title || questionId,
+        answerText: selectedText
+      };
+    });
+    setResults(mappedResults);  // Store mapped results
+    navigate("/completed", { state: { results: mappedResults } });  // Navigate to the completed page
+  });
 
   // Render loading or survey component
   const html = isLoading ? <p>Loading...</p> : <Survey model={survey} />;

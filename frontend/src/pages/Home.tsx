@@ -10,8 +10,6 @@ function Home() {
       <Carousel />
       <Banner />
       <Appointment />
-      <div className="text-center mt-4">
-      </div>
     </>
   );
 }

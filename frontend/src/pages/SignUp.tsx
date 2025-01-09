@@ -169,6 +169,7 @@ const Signup: React.FC = () => {
       </div>
     </div>
   );
+  
 };
 
 export default Signup;

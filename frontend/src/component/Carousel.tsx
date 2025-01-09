@@ -16,7 +16,7 @@ function Carousel() {
                   <h5 className="text-white text-uppercase mb-3 animated slideInDown">Keeps You Healthy</h5>
                   <h1 className="display-1 text-white mb-md-4 animated zoomIn">Take The Best Quality Treatment</h1>
                   <Link to="/appointment" className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">
-                    Appointment
+                    Take Survey
                   </Link>
                   <Link to="/contact-us" className="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</Link>
                 </div>
@@ -29,7 +29,7 @@ function Carousel() {
                   <h5 className="text-white text-uppercase mb-3 animated slideInDown">Keeps You Healthy</h5>
                   <h1 className="display-1 text-white mb-md-4 animated zoomIn">Take The Best Quality Treatment</h1>
                   <Link to="/appointment" className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">
-                    Appointment
+                    Take Survey
                   </Link>
                   <Link to="/contact-us" className="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Contact Us</Link>
                 </div>
