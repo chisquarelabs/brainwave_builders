@@ -30,67 +30,63 @@ const SurveyForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [schema, setSchema] = useState<SurveySchema | null>(null);
 
-  // Dummy survey schema
-  const dummySchema: SurveySchema = {
-    elements: [
-      {
-        type: "radiogroup",
-        name: "question1",
-        title: "Which year are you in?",
-        isRequired: true,
-        choices: [
-          { value: "item1", text: "Freshman" },
-          { value: "item2", text: "Sophomore" },
-          { value: "item3", text: "Junior" },
-          { value: "item4", text: "Senior" },
-          { value: "item5", text: "Grad Student" },
-        ],
-      },
-      {
-        type: "boolean",
-        name: "question2",
-        title:
-          "Was the learning curve of this course as communicated and expected?",
-        isRequired: true,
-      },
-      {
-        type: "boolean",
-        name: "question3",
-        title: "Would you recommend this course to other students?",
-        isRequired: true,
-      },
-      {
-        type: "text",
-        name: "question4",
-        visibleIf: "{question3} = false",
-        title: "Would you mind telling us why not?",
-        validators: [
-          {
-            type: "regex",
-            text: "Disallowed sequence(s) detected.",
-            regex: "^(?!<.+?>)", // Validation to protect against malicious HTML
-          },
-        ],
-      },
-      {
-        type: "boolean",
-        name: "question5",
-        title: "Would you take another course by the same professor?",
-        isRequired: true,
-      },
-      {
-        type: "text",
-        name: "question6",
-        title: "Do you have any suggestions to improve this course?",
-        validators: [
-          {
-            type: "regex",
-            text: "Disallowed sequence(s) detected.",
-            regex: "^(?!<.+?>)", // Validation to protect against malicious HTML
-          },
-        ],
-      },
-    ],
+  // Sample data from backend
+  const backendData=[]
+  
+
+  // Define question type mappings for survey elements
+  const questionTypeMap: { [key: string]: (item: any) => SurveyElement } = {
+    input: (item) => ({
+      type: "text",
+      name: item.id,
+      title: item.question_text,
+      isRequired: true,
+    }),
+    date: (item) => ({
+      type: "text", // Date question type can be mapped to a text input for simplicity
+      name: item.id,
+      title: item.question_text,
+      isRequired: true,
+      inputType: "date",
+    }),
+
+    radio: (item) => ({
+      type: "radiogroup",
+      name: item.id,
+      title: item.question_text,
+      isRequired: true,
+      choices: item.answers.map((answer: any) => ({
+        value: answer.id, // Use answer id as value
+        text: answer.answer_text, // Use answer text for display
+      })),
+    }),
+    
+    checkbox: (item) => ({
+      type: "checkbox",
+      name: item.id,
+      title: item.question_text,
+      isRequired: true,
+      choices: item.choices.map((choice: any) => ({
+        value: choice.value,
+        text: choice.text,
+      })),
+    }),
+    default: (item) => ({
+      type: "text",
+      name: item.id,
+      title: item.question_text,
+      isRequired: true,
+    }),
+  };
+
+  // Convert backend data to survey schema format
+  const generateSchema = (data: any[]): SurveySchema => {
+    const elements = data.map((item) => {
+      const createElement = questionTypeMap[item.question_type] || questionTypeMap.default;
+      return createElement(item);
+    });
+
+    return { elements };
   };
 
   // Dummy function to simulate post request
@@ -100,16 +96,11 @@ const SurveyForm = () => {
     // Example: axios.post("/api", results);
   };
 
-  const fetchQuestionnaire = async () => {
-    setIsLoading(true);
-    const response = await axios.get("http://localhost:4003/questions");
-    setSchema(response.data.questions);
-    setIsLoading(false);
-  };
-
-  // Set survey schema and remove loading state
+  // Set survey schema from backend data and remove loading state
   useEffect(() => {
-    fetchQuestionnaire();
+    const schema = generateSchema(backendData);
+    setSchema(schema);
+    setIsLoading(false);
   }, []);
 
   // Create Survey model from schema
