@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { IUserService } from "../../application/interfaces/IUserService";
-import { User } from "../../core/entities/User";
 import { IQuestionService } from "../../application/interfaces/IQuestionService";
 import { IEligibilityService } from "../../application/interfaces/IEligibilityService";
 

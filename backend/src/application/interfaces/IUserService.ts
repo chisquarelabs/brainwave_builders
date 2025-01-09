@@ -1,14 +1,13 @@
-import { User } from "../../core/entities/User";
+import { Users } from "../../core/entities/User";
 
 export interface IUserService {
-  getAllUsers(): Promise<User[]>;
-  getUserById(id: number): Promise<User | null>;
-  getUserByEmail(email: string): Promise<User | null>;
-  createUser(user: User): Promise<User>;
-  updateUser(id: number, user: Partial<User>): Promise<User>;
+  getAllUsers(): Promise<Users[]>;
+  getUserById(id: number): Promise<Users | null>;
+  createUser(user: Users): Promise<Users>;
+  updateUser(id: number, user: Partial<Users>): Promise<Users>;
   deleteUser(id: number): Promise<void>;
   login(
     email: string,
     password: string
-  ): Promise<{ token: string; user: User } | null>;
+  ): Promise<{ token: string; user: Users } | null>;
 }

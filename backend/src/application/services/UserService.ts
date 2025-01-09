@@ -1,6 +1,6 @@
 import { IUserService } from "../interfaces/IUserService";
 import { IUserRepository } from "../../core/interfaces/IUserRepository";
-import { User } from "../../core/entities/User";
+import { Users } from "../../core/entities/User";
 import { JwtService } from "../../infrastructure/services/JwtService";
 import { validate } from "class-validator";
 
@@ -11,19 +11,15 @@ export class UserService implements IUserService {
     this.jwtService = new JwtService();
   }
 
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<Users[]> {
     return this.userRepository.findAll();
   }
 
-  async getUserById(id: number): Promise<User | null> {
+  async getUserById(id: number): Promise<Users | null> {
     return this.userRepository.findById(id);
   }
 
-  async getUserByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findByEmail(email);
-  }
-
-  async createUser(user: User): Promise<User> {
+  async createUser(user: Users): Promise<Users> {
     const errors = await validate(user);
     if (errors.length > 0) {
       throw new Error(`Validation failed: ${errors.toString()}`);
@@ -31,7 +27,7 @@ export class UserService implements IUserService {
     return this.userRepository.create(user);
   }
 
-  async updateUser(id: number, user: Partial<User>): Promise<User> {
+  async updateUser(id: number, user: Partial<Users>): Promise<Users> {
     return this.userRepository.update(id, user);
   }
 
@@ -42,19 +38,20 @@ export class UserService implements IUserService {
   async login(
     email: string,
     password: string
-  ): Promise<{ token: string; user: User } | null> {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      return null;
-    }
+  ): Promise<{ token: string; user: Users } | null> {
+    // const user = await this.userRepository.findByEmail(email);
+    // if (!user) {
+    //   return null;
+    // }
 
-    const isValid = await user.validatePassword(password);
-    if (!isValid) {
-      return null;
-    }
+    // const isValid = await user.validatePassword(password);
+    // if (!isValid) {
+    //   return null;
+    // }
 
-    const token = this.jwtService.generateToken(user);
+    // const token = this.jwtService.generateToken(user);
 
-    return { token, user };
+    // return { token, user };
+    return null;
   }
 }

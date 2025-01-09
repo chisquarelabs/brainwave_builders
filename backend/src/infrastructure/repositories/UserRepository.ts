@@ -1,29 +1,25 @@
 import { Repository } from "typeorm";
-import { User } from "../../core/entities/User";
+import { Users } from "../../core/entities/User";
 import { IUserRepository } from "../../core/interfaces/IUserRepository";
 
 export class UserRepository implements IUserRepository {
-  constructor(private repository: Repository<User>) {}
+  constructor(private repository: Repository<Users>) {}
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<Users[]> {
     return this.repository.find();
   }
 
-  async findById(id: number): Promise<User | null> {
+  async findById(id: number): Promise<Users | null> {
     return this.repository.findOne({ where: { id } });
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    return this.repository.findOne({ where: { email } });
-  }
-
-  async create(user: User): Promise<User> {
+  async create(user: Users): Promise<Users> {
     return this.repository.save(user);
   }
 
-  async update(id: number, user: Partial<User>): Promise<User> {
+  async update(id: number, user: Partial<Users>): Promise<Users> {
     await this.repository.update(id, user);
-    return this.repository.findOne({ where: { id } }) as Promise<User>;
+    return this.repository.findOne({ where: { id } }) as Promise<Users>;
   }
 
   async delete(id: number): Promise<void> {

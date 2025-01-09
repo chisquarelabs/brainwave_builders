@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUserService } from "../../application/interfaces/IUserService";
-import { User } from "../../core/entities/User";
+import { Users } from "../../core/entities/User";
 
 export class UserController {
   constructor(private userService: IUserService) {}
@@ -30,9 +30,9 @@ export class UserController {
 
   async createUser(req: Request, res: Response): Promise<void> {
     try {
-      const user = new User();
-      user.username = req.body.username;
-      user.email = req.body.email;
+      const user = new Users();
+      user.first_name = req.body.firstName;
+      user.last_name = req.body.lastName;
       user.password = req.body.password;
 
       const createdUser = await this.userService.createUser(user);
@@ -45,7 +45,7 @@ export class UserController {
   async updateUser(req: Request, res: Response): Promise<void> {
     try {
       const id = parseInt(req.params.id);
-      const user = req.body as Partial<User>;
+      const user = req.body as Partial<Users>;
       const updatedUser = await this.userService.updateUser(id, user);
       res.json(updatedUser);
     } catch (error) {

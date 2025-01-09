@@ -5,7 +5,7 @@ import { AppDataSource } from "./infrastructure/database/typeorm.config";
 import { UserRepository } from "./infrastructure/repositories/UserRepository";
 import { UserService } from "./application/services/UserService";
 import { UserController } from "./presentation/controllers/UserController";
-import { User } from "./core/entities/User";
+import { Users } from "./core/entities/User";
 import { authMiddleware } from "./presentation/middlewares/authMiddleWare";
 import { UserRoutes } from "./routes/UserRoutes";
 import { Question, Questionnaire } from "./core/entities/Question";
@@ -31,7 +31,7 @@ export const createApp = async (config) => {
 
   // Repositories
   const userRepository = new UserRepository(
-    dataBaseInstance.getRepository(User)
+    dataBaseInstance.getRepository(Users)
   );
   const questionRepository = new QuestionRepository(
     dataBaseInstance.getRepository(Questionnaire)

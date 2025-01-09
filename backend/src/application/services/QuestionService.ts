@@ -1,6 +1,5 @@
 import { IUserService } from "../interfaces/IUserService";
 import { IUserRepository } from "../../core/interfaces/IUserRepository";
-import { User } from "../../core/entities/User";
 import { JwtService } from "../../infrastructure/services/JwtService";
 import { validate } from "class-validator";
 import { IQuestionService } from "../interfaces/IQuestionService";
